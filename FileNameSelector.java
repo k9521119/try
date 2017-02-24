@@ -37,9 +37,17 @@ public class FileNameSelector implements FilenameFilter {
         // List all the txt files in directory
         File[] txtFiles = directory.listFiles(new FileNameSelector("txt"));
 //        System.out.println("\n当前目录下的所有txt文件:");
+
+        int number = 1; // 给txt文件列表前面添加序号
+        int k;
+
+        // Save the txt file list to txtFileList.txt
         for (File file : txtFiles) {
 //            System.out.print(file.getName() + "\n");
-            output.write(file.getName() + "\r\n");
+            k = file.getName().indexOf("."); // 文件名后缀.所在的下标
+            output.write(number + "." + file.getName().substring(0, k) + "\r\n"); // \r\n即为换行, substring(0, k)截取文件名后缀名之前的部分
+            number++;
+            output.flush(); // 把缓冲区内容压入文件
         }
 
         // Close file
